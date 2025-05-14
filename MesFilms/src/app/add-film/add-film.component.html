@@ -1,0 +1,49 @@
+<div class="container">
+  <div>
+    <h2>Ajouter un Film :</h2>
+  </div>
+  <form>
+
+    <!-- <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>ID Film</label>
+      <input type="text" [(ngModel)]="newFilm.idFilm"
+             name="idFilm" class="form-control">
+    </div> -->
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Nom Film</label>
+      <input type="text" [(ngModel)]="newFilm.nomFilm"
+             name="nomFilm" class="form-control">
+    </div>
+
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Durée</label>
+      <input type="number" [(ngModel)]="newFilm.duree"
+             name="duree" class="form-control">
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date de sortie</label>
+      <input type="date" [(ngModel)]="newFilm.dateSortie"
+             name="dateSortie" class="form-control">
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Genre</label>
+
+      <select class="form-control form-control-lg" id="idG" name="idG" [(ngModel)]="newIdG">
+        @for(gen of genres; track gen.idG){
+          <option [value]="gen.idG"> {{gen.nomG}}
+          </option>
+        }
+      </select>
+    </div>
+
+
+    <div class="mt-2">
+      <button type="submit" (click)="addFilm()" class="btn btn-success">Ajouter</button>
+    </div>
+
+
+  </form>
+</div>

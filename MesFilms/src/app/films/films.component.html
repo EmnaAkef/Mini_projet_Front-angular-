@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <tr> <th>Id</th><th>Nom</th> <th>Durée</th>  <th>Date de sortie</th> <th>Genre</th></tr>
+        @for (film of films; track film.idFilm)
+        {
+
+          <tbody>
+            <tr>
+              <td>{{film.idFilm}}</td>
+              <td>{{film.nomFilm}}</td>
+              <td>{{film.duree}}</td>
+              <td>{{film.dateSortie | date:'dd/MM/yyyy'}}</td>
+
+              @if(film.genre){
+                <td>{{film.genre.nomG}}</td>  }
+              @else {
+                <td>PAS DE GENRE</td>
+              }
+
+              @if(authService.isAdmin()) { 
+<td><a class="btn btn-danger"  (click)="supprimerFilm(film)">Supprimer</a></td>  
+<td><a class="btn btn-success" [routerLink]="['/updateFilm',film.idFilm]">Modifier</a></td> 
+}   
+            </tr>
+          </tbody>
+        }
+
+
+      </table>
+    </div>
+  </div>
+</div>
