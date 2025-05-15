@@ -1,36 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { AuthService } from './services/auth.service';
-
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterLink,RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
-})
-export class AppComponent implements OnInit {
-  title = 'Mes Films';
-  constructor (public authService: AuthService,
-              private router: Router,
-  ) {}
-
-  ngOnInit () {
-    let isloggedin: string; 
-  let loggedUser:string; 
-  isloggedin = localStorage.getItem('isloggedIn') !; 
-  loggedUser = localStorage.getItem('loggedUser') !; 
-  if (isloggedin!="true" || !loggedUser) 
-      this.router.navigate(['/login']); 
-  else 
-   this.authService.setLoggedUserFromLocalStorage(loggedUser); 
-  }
-  
-
-  onLogout(){
-    console.log("logout-------1");
-    this.authService.logout();
-  }
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { tokenInterceptor } from './services/token.interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 
-}
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
+              provideRouter(routes),
+              provideHttpClient(withInterceptors([tokenInterceptor])),
+              provideAnimations(), // required animations providers
+              provideToastr(), // Toastr providers
+            ]
+};
